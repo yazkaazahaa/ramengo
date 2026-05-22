@@ -6,7 +6,6 @@ use App\Http\Controllers\HomeController;
 use App\Http\Controllers\MenuController;
 use App\Http\Controllers\OrderController;
 use App\Http\Controllers\CartController;
-
 use App\Http\Controllers\CustomerController;
 use App\Http\Controllers\CashierController;
 use App\Http\Controllers\KitchenController;
@@ -18,15 +17,17 @@ use App\Http\Controllers\AdminController;
 |--------------------------------------------------------------------------
 */
 
-Route::get('/', [HomeController::class, 'index']);
+Route::get('/', [HomeController::class,'index']);
+
 
 /*
 |--------------------------------------------------------------------------
-| ADMIN MENU CRUD
+| MENU CRUD
 |--------------------------------------------------------------------------
 */
 
 Route::resource('menu', MenuController::class);
+
 
 /*
 |--------------------------------------------------------------------------
@@ -34,17 +35,18 @@ Route::resource('menu', MenuController::class);
 |--------------------------------------------------------------------------
 */
 
-Route::get('/cart', [CartController::class, 'index'])
+Route::get('/cart', [CartController::class,'index'])
     ->name('cart.index');
 
-Route::get('/cart/add/{id}', [CartController::class, 'add'])
+Route::get('/cart/add/{id}', [CartController::class,'add'])
     ->name('cart.add');
 
-Route::get('/cart/decrease/{id}', [CartController::class, 'decrease'])
+Route::get('/cart/decrease/{id}', [CartController::class,'decrease'])
     ->name('cart.decrease');
 
-Route::post('/checkout',[CartController::class,'checkout'])
+Route::post('/checkout', [CartController::class,'checkout'])
     ->name('checkout');
+
 
 /*
 |--------------------------------------------------------------------------
@@ -52,11 +54,15 @@ Route::post('/checkout',[CartController::class,'checkout'])
 |--------------------------------------------------------------------------
 */
 
-Route::get('/order/{id}', [OrderController::class, 'create'])
+Route::get('/order/{id}', [OrderController::class,'create'])
     ->name('order.create');
 
-Route::post('/order', [OrderController::class, 'store'])
+Route::post('/order', [OrderController::class,'store'])
     ->name('order.store');
+
+Route::get('/order-status/{id}', [OrderController::class,'status'])
+    ->name('order.status');
+
 
 /*
 |--------------------------------------------------------------------------
@@ -64,10 +70,27 @@ Route::post('/order', [OrderController::class, 'store'])
 |--------------------------------------------------------------------------
 */
 
-Route::get('/customer', [CustomerController::class, 'index']);
+Route::get('/customer', [CustomerController::class,'index']);
 
-Route::get('/customer/menu', [CustomerController::class, 'menu'])
+Route::get('/customer/menu', [CustomerController::class,'menu'])
     ->name('customer.menu');
+
+
+/*
+|--------------------------------------------------------------------------
+| STATIC PAGE
+|--------------------------------------------------------------------------
+*/
+
+Route::view('/about','customer.about')
+    ->name('about');
+
+Route::view('/promo','customer.promo')
+    ->name('promo');
+
+Route::view('/contact','customer.contact')
+    ->name('contact');
+
 
 /*
 |--------------------------------------------------------------------------
@@ -75,7 +98,12 @@ Route::get('/customer/menu', [CustomerController::class, 'menu'])
 |--------------------------------------------------------------------------
 */
 
-Route::get('/cashier', [CashierController::class, 'index']);
+Route::get('/cashier', [CashierController::class,'index'])
+    ->name('cashier.index');
+
+Route::post('/cashier/paid/{id}', [CashierController::class,'paid'])
+    ->name('cashier.paid');
+
 
 /*
 |--------------------------------------------------------------------------
@@ -83,7 +111,21 @@ Route::get('/cashier', [CashierController::class, 'index']);
 |--------------------------------------------------------------------------
 */
 
-Route::get('/kitchen', [KitchenController::class, 'index']);
+Route::get(
+    '/kitchen',
+    [KitchenController::class,'index']
+);
+
+Route::post(
+    '/kitchen/cook/{id}',
+    [KitchenController::class,'cook']
+)->name('kitchen.cook');
+
+Route::post(
+    '/kitchen/ready/{id}',
+    [KitchenController::class,'ready']
+)->name('kitchen.ready');
+
 
 /*
 |--------------------------------------------------------------------------
@@ -91,4 +133,5 @@ Route::get('/kitchen', [KitchenController::class, 'index']);
 |--------------------------------------------------------------------------
 */
 
-Route::get('/admin', [AdminController::class, 'index']);
+Route::get('/admin', [AdminController::class,'index'])
+    ->name('admin.index');

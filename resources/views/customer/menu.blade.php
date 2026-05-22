@@ -33,7 +33,7 @@
 
     @forelse($menus as $menu)
 
-        <div class="bg-white rounded-2xl shadow-md p-5">
+        <x-card>
 
             <div class="h-40 bg-orange-100 rounded-xl mb-4"></div>
 
@@ -55,7 +55,7 @@
 
                     <div class="flex items-center gap-3">
 
-                        <a href="{{ route('cart.decrease', $menu->id) }}"
+                        <a href="{{ route('cart.decrease',$menu->id) }}"
                            class="bg-gray-200 hover:bg-gray-300 w-8 h-8 rounded-full flex items-center justify-center text-xl transition">
 
                             -
@@ -63,13 +63,18 @@
                         </a>
 
                         <span class="font-bold text-lg">
+
                             {{ $cart[$menu->id]['quantity'] }}
+
                         </span>
 
-                        <a href="{{ route('cart.add', $menu->id) }}"
-                           class="bg-orange-500 hover:bg-orange-600 text-white w-8 h-8 rounded-full flex items-center justify-center text-xl transition">
+                        <a href="{{ route('cart.add',$menu->id) }}">
 
-                            +
+                            <x-button>
+
+                                +
+
+                            </x-button>
 
                         </a>
 
@@ -77,10 +82,13 @@
 
                 @else
 
-                    <a href="{{ route('cart.add', $menu->id) }}"
-                       class="bg-orange-500 hover:bg-orange-600 text-white w-10 h-10 rounded-full flex items-center justify-center text-2xl transition">
+                    <a href="{{ route('cart.add',$menu->id) }}">
 
-                        +
+                        <x-button>
+
+                            +
+
+                        </x-button>
 
                     </a>
 
@@ -88,11 +96,23 @@
 
             </div>
 
-        </div>
+        </x-card>
 
     @empty
 
-        <p>Belum ada menu.</p>
+        <div class="col-span-3">
+
+            <x-card>
+
+                <p class="text-center text-gray-500">
+
+                    Belum ada menu 🍜
+
+                </p>
+
+            </x-card>
+
+        </div>
 
     @endforelse
 

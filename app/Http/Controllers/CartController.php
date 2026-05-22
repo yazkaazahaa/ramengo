@@ -21,18 +21,19 @@ class CartController extends Controller
 
         $cart = session()->get('cart', []);
 
-        if(isset($cart[$id])){
-
+        if(isset($cart[$id]))
+        {
             $cart[$id]['quantity']++;
+        }
+        else
+        {
+            $cart[$id] = [
 
-        }else{
+                'nama' => $menu->nama,
+                'harga' => $menu->harga,
+                'quantity' => 1
 
-            $cart[$id]=[
-                'nama'=>$menu->nama,
-                'harga'=>$menu->harga,
-                'quantity'=>1
             ];
-
         }
 
         session()->put('cart',$cart);
@@ -42,18 +43,16 @@ class CartController extends Controller
 
     public function decrease($id)
     {
-        $cart=session()->get('cart',[]);
+        $cart = session()->get('cart',[]);
 
-        if(isset($cart[$id])){
-
+        if(isset($cart[$id]))
+        {
             $cart[$id]['quantity']--;
 
-            if($cart[$id]['quantity']<=0){
-
+            if($cart[$id]['quantity'] <= 0)
+            {
                 unset($cart[$id]);
-
             }
-
         }
 
         session()->put('cart',$cart);
@@ -63,47 +62,58 @@ class CartController extends Controller
 
     public function checkout()
     {
-        $cart = session()->get('cart', []);
+        $cart = session()->get('cart',[]);
 
-        if(empty($cart)){
-
-            return redirect()->back();
-
+        if(empty($cart))
+        {
+            return redirect()
+                ->back()
+                ->with(
+                    'success',
+                    'Keranjang kosong'
+                );
         }
 
         $total = 0;
 
-        foreach($cart as $item){
-
-            $total += $item['harga'] * $item['quantity'];
-
+        foreach($cart as $item)
+        {
+            $total +=
+                $item['harga']
+                *
+                $item['quantity'];
         }
 
         $order = Order::create([
 
             'nomor_meja' => 7,
             'total_harga' => $total,
-            'status' => 'pending'
+            'status' => 'menunggu'
 
         ]);
 
-        foreach($cart as $menuId=>$item){
-
+        foreach($cart as $menuId => $item)
+        {
             OrderItem::create([
 
-                'order_id'=>$order->id,
-                'menu_id'=>$menuId,
-                'quantity'=>$item['quantity'],
-                'harga'=>$item['harga']
+                'order_id' => $order->id,
+                'menu_id' => $menuId,
+                'quantity' => $item['quantity'],
+                'harga' => $item['harga']
 
             ]);
-
         }
 
         session()->forget('cart');
 
         return redirect()
-        ->route('customer.menu')
-        ->with('success','Pesanan berhasil dibuat 🍜');
+            ->route(
+                'order.status',
+                $order->id
+            )
+            ->with(
+                'success',
+                'Pesanan berhasil dibuat 🍜'
+            );
     }
 }
