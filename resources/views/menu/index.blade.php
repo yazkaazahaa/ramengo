@@ -1,108 +1,30 @@
-@extends('layouts.admin')
+@extends('layouts.app')
 
 @section('content')
 
-<h1 class="text-4xl font-bold text-orange-500 mb-8">
+<div class="max-w-6xl mx-auto py-12">
 
-Daftar Menu 🍜
+    <div class="text-center mb-12">
+        <p class="text-orange-500 font-semibold">
+            Favorit Kami
+        </p>
 
-</h1>
+        <h1 class="text-5xl font-bold mt-3">
+            Temukan Menu Kami
+        </h1>
+    </div>
 
-<a
-href="{{ route('menu.create') }}"
-class="bg-orange-500 text-white px-5 py-3 rounded-xl inline-block mb-6">
+    <div class="flex justify-center gap-8 mb-10">
+        <button class="border-b-2 border-orange-500 text-orange-500 font-semibold pb-2">
+            Makanan
+        </button>
 
-+ Tambah Menu
+        <button class="font-semibold text-gray-700">
+            Minuman
+        </button>
+    </div>
 
-</a>
-
-
-<div class="grid grid-cols-3 gap-6">
-
-@forelse($menus as $menu)
-
-<div class="bg-white p-6 rounded-2xl shadow">
-
-@if($menu->gambar)
-
-<img
-src="{{ asset('storage/'.$menu->gambar) }}"
-class="w-full h-40 object-cover rounded-xl mb-4">
-
-@else
-
-<div class="h-40 bg-orange-100 rounded-xl mb-4 flex items-center justify-center">
-
-🍜
-
-</div>
-
-@endif
-
-
-<h2 class="text-2xl font-bold">
-
-{{ $menu->nama }}
-
-</h2>
-
-
-<p class="text-gray-500 mb-3">
-
-{{ $menu->deskripsi }}
-
-</p>
-
-
-<p class="text-orange-500 font-bold text-xl mb-4">
-
-Rp {{ number_format($menu->harga) }}
-
-</p>
-
-
-<div class="flex gap-3">
-
-<a
-href="{{ route('menu.edit',$menu->id) }}"
-class="bg-blue-500 text-white px-4 py-2 rounded-xl">
-
-Edit ✏️
-
-</a>
-
-
-<form
-action="{{ route('menu.destroy',$menu->id) }}"
-method="POST">
-
-@csrf
-@method('DELETE')
-
-<button
-type="submit"
-onclick="return confirm('Yakin ingin menghapus menu ini?')"
-class="bg-red-500 text-white px-4 py-2 rounded-xl">
-
-Hapus 🗑️
-
-</button>
-
-</form>
-
-</div>
-
-</div>
-
-@empty
-
-<div class="col-span-3 bg-white p-6 rounded-xl text-center">
-
-Belum ada menu 🍜
-
-</div>
-
-@endforelse
+    {{-- Daftar Menu Disini --}}
 
 </div>
 

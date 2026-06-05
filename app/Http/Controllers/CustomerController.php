@@ -16,9 +16,16 @@ class CustomerController extends Controller
     {
         $menus = Menu::all();
 
+        $makanan = $menus->where('kategori', 'Makanan');
+        $minuman = $menus->where('kategori', 'Minuman');
+
         return view(
             'customer.menu',
-            compact('menus')
+            compact(
+                'menus',
+                'makanan',
+                'minuman'
+            )
         );
     }
 
