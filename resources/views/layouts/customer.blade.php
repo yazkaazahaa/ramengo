@@ -47,9 +47,9 @@
                         Menu
                     </a>
 
-                    <a href="/promo"
+                    <a href="{{ route('berita') }}"
                         class="hover:text-orange-500 font-medium">
-                        Promo
+                        Berita 📰
                     </a>
 
                     <a href="/about"

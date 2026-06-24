@@ -31,8 +31,11 @@ Route::get('/table/{id}', [CustomerController::class, 'scanMeja'])
 
 Route::get('/about', [CustomerController::class, 'about'])
     ->name('about');
-Route::get('/promo', [CustomerController::class, 'promo'])
-    ->name('promo');
+Route::get('/berita', [CustomerController::class, 'berita'])
+    ->name('berita');
+Route::get('/promo', function () {
+    return redirect()->route('berita');
+});
 Route::get('/contact', [CustomerController::class, 'contact'])
     ->name('contact');
 
@@ -137,6 +140,10 @@ Route::middleware(['auth'])->group(function () {
         ->name('admin.index');
     Route::get('/admin/content', [WebsiteContentController::class, 'index'])
         ->name('content.index');
+    Route::get('/admin/content/{id}/edit', [WebsiteContentController::class, 'edit'])
+        ->name('admin.content.edit');
+    Route::put('/admin/content/{id}', [WebsiteContentController::class, 'update'])
+        ->name('admin.content.update');
     Route::post('/admin/content/update/{id}', [WebsiteContentController::class, 'update'])
         ->name('content.update');
     Route::post('/admin/content/store', [WebsiteContentController::class, 'store'])

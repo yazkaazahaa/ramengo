@@ -35,10 +35,10 @@
 
             </a>
 
-            <a href="{{ route('promo') }}"
+            <a href="{{ route('berita') }}"
                class="hover:text-orange-500 transition">
 
-                Promo
+                Berita 📰
 
             </a>
 

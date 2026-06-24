@@ -106,16 +106,17 @@ class CustomerController extends Controller
         );
     }
 
-    public function promo()
+    public function berita()
     {
-        $content = WebsiteContent::where(
-            'halaman',
-            'promo'
-        )->first();
+        $contents = WebsiteContent::query()
+            ->whereIn('halaman', ['event', 'promo'])
+            ->where('is_active', true)
+            ->latest()
+            ->get();
 
         return view(
             'customer.promo',
-            compact('content')
+            compact('contents')
         );
     }
 

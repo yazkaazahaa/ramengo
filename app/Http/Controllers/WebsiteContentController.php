@@ -19,6 +19,17 @@ class WebsiteContentController extends Controller
     }
 
 
+    public function edit($id)
+    {
+        $content = WebsiteContent::findOrFail($id);
+
+        return view(
+            'admin.content.edit',
+            compact('content')
+        );
+    }
+
+
     public function update(
         Request $request,
         $id
@@ -27,11 +38,19 @@ class WebsiteContentController extends Controller
         $content =
             WebsiteContent::findOrFail($id);
 
+        $validated = $request->validate([
+            'halaman' => ['nullable', 'in:promo,event,about,contact'],
+            'judul' => ['required', 'string', 'max:255'],
+            'isi' => ['required', 'string'],
+            'poster' => ['nullable', 'image', 'mimes:jpg,jpeg,png,webp', 'max:2048'],
+            'is_active' => ['nullable', 'boolean'],
+        ]);
+
         $data = [
 
-            'halaman' => $request->halaman ?? $content->halaman,
-            'judul' => $request->judul,
-            'isi' => $request->isi,
+            'halaman' => $validated['halaman'] ?? $content->halaman,
+            'judul' => $validated['judul'],
+            'isi' => $validated['isi'],
             'is_active' => $request->boolean('is_active', true)
 
         ];

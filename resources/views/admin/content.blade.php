@@ -193,7 +193,14 @@
                             <h3 class="text-2xl font-extrabold text-gray-900">{{ $content->judul }}</h3>
                             <p class="mt-3 line-clamp-4 flex-1 leading-7 text-gray-600">{{ $content->isi }}</p>
 
-                            <div class="mt-6 grid grid-cols-2 gap-3">
+                            <div class="mt-6 grid gap-3 sm:grid-cols-3">
+                                <a
+                                    href="{{ route('admin.content.edit', $content->id) }}"
+                                    class="inline-flex w-full items-center justify-center rounded-xl bg-sky-100 px-4 py-3 text-center text-sm font-bold text-sky-700 transition hover:bg-sky-200"
+                                >
+                                    Edit Konten
+                                </a>
+
                                 <form action="{{ route('content.update', $content->id) }}" method="POST">
                                     @csrf
                                     <input type="hidden" name="halaman" value="{{ $content->halaman }}">
