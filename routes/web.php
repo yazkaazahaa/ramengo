@@ -31,6 +31,24 @@ Route::get('/', [HomeController::class,'index']);
 
 Route::resource('menu', MenuController::class);
 
+Route::get('/admin/menu', [MenuController::class,'index'])
+    ->name('admin.menu.index');
+
+Route::get('/admin/menu/create', [MenuController::class,'create'])
+    ->name('admin.menu.create');
+
+Route::post('/admin/menu', [MenuController::class,'store'])
+    ->name('admin.menu.store');
+
+Route::get('/admin/menu/{id}/edit', [MenuController::class,'edit'])
+    ->name('admin.menu.edit');
+
+Route::put('/admin/menu/{id}', [MenuController::class,'update'])
+    ->name('admin.menu.update');
+
+Route::delete('/admin/menu/{id}', [MenuController::class,'destroy'])
+    ->name('admin.menu.destroy');
+
 /*
 |--------------------------------------------------------------------------
 | CART
@@ -114,6 +132,12 @@ Route::post('/cashier/paid/{id}', [AdminOrderController::class,'lunas'])
 
 Route::get('/cashier/history', [CashierController::class,'history'])
     ->name('cashier.history');    
+
+Route::get('/admin/kasir/{id}/detail', [CashierController::class,'detail'])
+    ->name('cashier.detail');
+
+Route::post('/admin/kasir/{id}/proses-bayar', [CashierController::class,'prosesBayar'])
+    ->name('cashier.proses-bayar');
 
 /*
 |--------------------------------------------------------------------------

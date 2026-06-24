@@ -55,6 +55,12 @@ class CartController extends Controller
 
     public function checkout()
     {
+        // Checkout dikunci ke session meja hasil scan QR agar order tidak yatim tanpa meja.
+        if (! session()->has('id_meja')) {
+            return redirect('/')
+                ->with('error', 'Silakan scan QR meja terlebih dahulu sebelum memesan.');
+        }
+
         $cart = session()->get('cart', []);
 
         if(empty($cart)) {

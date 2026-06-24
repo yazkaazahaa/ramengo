@@ -10,9 +10,12 @@ class MenuController extends Controller
     public function index()
     {
         $menus = Menu::all();
+        $view = request()->routeIs('admin.menu.index')
+            ? 'admin.menu.index'
+            : 'menu.index';
 
         return view(
-            'menu.index',
+            $view,
             compact('menus')
         );
     }
@@ -61,8 +64,12 @@ class MenuController extends Controller
         ]);
 
 
+        $redirectRoute = $request->routeIs('admin.menu.store')
+            ? 'admin.menu.index'
+            : 'menu.index';
+
         return redirect()
-            ->route('menu.index')
+            ->route($redirectRoute)
             ->with(
                 'success',
                 'Menu berhasil ditambahkan 🍜'
@@ -73,9 +80,12 @@ class MenuController extends Controller
     public function edit($id)
     {
         $menu = Menu::findOrFail($id);
+        $view = request()->routeIs('admin.menu.edit')
+            ? 'admin.menu.edit'
+            : 'menu.edit';
 
         return view(
-            'menu.edit',
+            $view,
             compact('menu')
         );
     }
@@ -114,10 +124,10 @@ class MenuController extends Controller
 
 
         return redirect()
-            ->route('menu.index')
+            ->route('admin.menu.index')
             ->with(
                 'success',
-                'Menu berhasil diupdate ✅'
+                'Menu berhasil diupdate'
             );
     }
 
@@ -128,8 +138,12 @@ class MenuController extends Controller
 
         $menu->delete();
 
+        $redirectRoute = request()->routeIs('admin.menu.destroy')
+            ? 'admin.menu.index'
+            : 'menu.index';
+
         return redirect()
-            ->route('menu.index')
+            ->route($redirectRoute)
             ->with(
                 'success',
                 'Menu berhasil dihapus 🗑️'

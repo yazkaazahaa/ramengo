@@ -37,11 +37,19 @@ class OrderController extends Controller
     // 🔥 INI YANG DIPAKAI NAVBAR (LIST SEMUA ORDER)
     public function status()
     {
-        $order = Order::where('meja_id', session('id_meja'))
+        // Status pesanan hanya boleh dibuka setelah pelanggan scan QR meja.
+        if (! session()->has('id_meja')) {
+            return redirect('/')
+                ->with('error', 'Silakan scan QR meja terlebih dahulu.');
+        }
+
+        // Ambil satu order terakhir dari meja aktif agar status tidak tercampur dengan meja lain.
+        $order = Order::with(['items.menu', 'meja'])
+            ->where('meja_id', session('id_meja'))
             ->latest()
             ->first();
 
-        return view('customer.order-status', compact('order'));
+        return view('order-status', compact('order'));
     }
 
     // (OPSIONAL) detail order kalau nanti dibutuhkan

@@ -41,7 +41,8 @@ class AdminOrderController extends Controller
 
         $order->update([
             'status_pembayaran' => 'lunas',
-            'status' => 'Sudah Dibayar',
+            'status_pesanan' => 'selesai',
+            'status' => 'Selesai',
         ]);
 
         return redirect()

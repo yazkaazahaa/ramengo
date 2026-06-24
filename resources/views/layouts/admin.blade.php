@@ -40,7 +40,7 @@ Dashboard 📊
 </a>
 
 <a
-href="{{ route('menu.index') }}"
+href="{{ route('admin.menu.index') }}"
 class="text-white font-semibold hover:text-orange-100">
 
 Menu 🍜
