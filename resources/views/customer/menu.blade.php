@@ -5,6 +5,7 @@
 @php
     $cart = session('cart', []);
     $activeKategori = $activeKategori ?? 'semua';
+    $hasMeja = session()->has('id_meja');
 @endphp
 
 <section class="mx-auto max-w-7xl py-4">
@@ -17,6 +18,14 @@
             Menu RamenGo
         </h1>
     </div>
+
+    @if($hasMeja)
+        <div class="mb-6 rounded-2xl border border-orange-200 bg-orange-50 px-5 py-4 text-center shadow-sm">
+            <p class="text-lg font-extrabold text-orange-700">
+                Nomor Meja Anda: {{ session('nomor_meja') }}
+            </p>
+        </div>
+    @endif
 
     <div class="mb-8 rounded-2xl border border-gray-100 bg-white p-4 shadow-sm">
         <div class="flex flex-wrap justify-center gap-3">
@@ -72,25 +81,27 @@
                                 Rp {{ number_format($menu->harga, 0, ',', '.') }}
                             </p>
 
-                            <div class="flex shrink-0 items-center overflow-hidden rounded-full border border-gray-200 bg-gray-50">
-                                <a
-                                    href="{{ route('cart.decrease', $menu->id) }}"
-                                    class="flex h-8 w-8 items-center justify-center text-lg font-bold text-gray-600 transition hover:bg-gray-200"
-                                    aria-label="Kurangi {{ $menu->nama }}">
-                                    -
-                                </a>
+                            @if($hasMeja)
+                                <div class="flex shrink-0 items-center overflow-hidden rounded-full border border-gray-200 bg-gray-50">
+                                    <a
+                                        href="{{ route('cart.decrease', $menu->id) }}"
+                                        class="flex h-8 w-8 items-center justify-center text-lg font-bold text-gray-600 transition hover:bg-gray-200"
+                                        aria-label="Kurangi {{ $menu->nama }}">
+                                        -
+                                    </a>
 
-                                <span class="min-w-8 text-center text-sm font-bold text-gray-900">
-                                    {{ $cart[$menu->id]['quantity'] ?? 0 }}
-                                </span>
+                                    <span class="min-w-8 text-center text-sm font-bold text-gray-900">
+                                        {{ $cart[$menu->id]['quantity'] ?? 0 }}
+                                    </span>
 
-                                <a
-                                    href="{{ route('cart.add', $menu->id) }}"
-                                    class="flex h-8 w-8 items-center justify-center bg-orange-500 text-lg font-bold text-white transition hover:bg-orange-600"
-                                    aria-label="Tambah {{ $menu->nama }}">
-                                    +
-                                </a>
-                            </div>
+                                    <a
+                                        href="{{ route('cart.add', $menu->id) }}"
+                                        class="flex h-8 w-8 items-center justify-center bg-orange-500 text-lg font-bold text-white transition hover:bg-orange-600"
+                                        aria-label="Tambah {{ $menu->nama }}">
+                                        +
+                                    </a>
+                                </div>
+                            @endif
                         </div>
                     </div>
                 </article>

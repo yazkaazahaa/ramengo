@@ -17,42 +17,47 @@ class OrderController extends Controller
 
     public function store(Request $request)
     {
+        if (! session()->has('id_meja')) {
+            return redirect()
+                ->back()
+                ->with('error', 'Akses ditolak! Anda harus memindai QR Code meja terlebih dahulu untuk memesan.');
+        }
+
         $validated = $request->validate([
             'menu_id' => 'required',
             'nomor_meja' => 'required',
-            'quantity' => 'required|numeric|min:1'
+            'quantity' => 'required|numeric|min:1',
         ]);
 
-        $order = Order::create([
+        Order::create([
             'menu_id' => $validated['menu_id'],
             'nomor_meja' => $validated['nomor_meja'],
             'quantity' => $validated['quantity'],
-            'status' => 'Menunggu Dimasak'
+            'status' => 'Menunggu Dimasak',
         ]);
 
         return redirect('/order-status')
-            ->with('success', 'Pesanan berhasil dibuat 🍜');
+            ->with('success', 'Pesanan berhasil dibuat');
     }
 
-    // 🔥 INI YANG DIPAKAI NAVBAR (LIST SEMUA ORDER)
     public function status()
     {
-        // Status pesanan hanya boleh dibuka setelah pelanggan scan QR meja.
+        // Kunci keamanan: status pesanan hanya boleh dibuka setelah scan QR meja.
         if (! session()->has('id_meja')) {
-            return redirect('/')
-                ->with('error', 'Silakan scan QR meja terlebih dahulu.');
+            return redirect('/customer/menu')
+                ->with('error', 'Akses ditolak! Silakan scan QR Code di meja Anda terlebih dahulu untuk melihat status pesanan.');
         }
 
-        // Ambil satu order terakhir dari meja aktif agar status tidak tercampur dengan meja lain.
+        // Ambil satu order aktif terakhir milik meja yang sedang tersimpan di session.
         $order = Order::with(['items.menu', 'meja'])
             ->where('meja_id', session('id_meja'))
+            ->whereIn('status_pesanan', ['pending', 'dimasak', 'siap_dihidangkan'])
             ->latest()
             ->first();
 
-        return view('order-status', compact('order'));
+        return view('customer.order-status', compact('order'));
     }
 
-    // (OPSIONAL) detail order kalau nanti dibutuhkan
     public function detail($id)
     {
         $order = Order::findOrFail($id);

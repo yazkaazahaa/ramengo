@@ -10,6 +10,11 @@ class CartController extends Controller
 {
     public function index()
     {
+        if (! session()->has('id_meja')) {
+            return redirect('/customer/menu')
+                ->with('error', 'Akses ditolak! Anda harus memindai QR Code meja terlebih dahulu untuk memesan.');
+        }
+
         $cart = session()->get('cart', []);
 
         return view('customer.cart', compact('cart'));
@@ -17,6 +22,11 @@ class CartController extends Controller
 
     public function add($id)
     {
+        if (! session()->has('id_meja')) {
+            return redirect('/customer/menu')
+                ->with('error', 'Akses ditolak! Anda harus memindai QR Code meja terlebih dahulu untuk memesan.');
+        }
+
         $menu = Menu::findOrFail($id);
 
         $cart = session()->get('cart', []);
@@ -38,6 +48,11 @@ class CartController extends Controller
 
     public function decrease($id)
     {
+        if (! session()->has('id_meja')) {
+            return redirect('/customer/menu')
+                ->with('error', 'Akses ditolak! Anda harus memindai QR Code meja terlebih dahulu untuk memesan.');
+        }
+
         $cart = session()->get('cart', []);
 
         if(isset($cart[$id])) {
