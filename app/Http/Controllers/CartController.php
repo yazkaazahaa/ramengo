@@ -73,7 +73,9 @@ class CartController extends Controller
             'nomor_meja' => session('nomor_meja', 'Take Away'),
             'meja_id' => session('id_meja'),
             'total_harga' => $total,
-            'status' => 'Menunggu Dimasak'
+            'status' => 'Menunggu Dimasak',
+            'status_pesanan' => 'pending',
+            'status_pembayaran' => 'belum_lunas'
         ]);
 
         session()->put('last_order_id', $order->id);

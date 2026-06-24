@@ -12,6 +12,7 @@ use App\Http\Controllers\CashierController;
 use App\Http\Controllers\KitchenController;
 use App\Http\Controllers\AdminController;
 use App\Http\Controllers\AdminMejaController;
+use App\Http\Controllers\AdminOrderController;
 use App\Http\Controllers\WebsiteContentController;
 
 /*
@@ -108,7 +109,7 @@ Route::middleware('auth')->group(function () {
 Route::get('/cashier', [CashierController::class,'index'])
     ->name('cashier.index');
 
-Route::post('/cashier/paid/{id}', [CashierController::class,'paid'])
+Route::post('/cashier/paid/{id}', [AdminOrderController::class,'lunas'])
     ->name('cashier.paid');
 
 Route::get('/cashier/history', [CashierController::class,'history'])
@@ -123,11 +124,11 @@ Route::get('/cashier/history', [CashierController::class,'history'])
 Route::get('/kitchen', [KitchenController::class,'index']);
 
 Route::post('/kitchen/cook/{id}',
-    [KitchenController::class,'cook'])
+    [AdminOrderController::class,'masak'])
     ->name('kitchen.cook');
 
 Route::post('/kitchen/ready/{id}',
-    [KitchenController::class,'ready'])
+    [AdminOrderController::class,'hidangkan'])
     ->name('kitchen.ready');
 
 /*

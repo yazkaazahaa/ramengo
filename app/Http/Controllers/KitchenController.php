@@ -8,7 +8,9 @@ class KitchenController extends Controller
 {
     public function index()
     {
-        $orders = Order::latest()->get();
+        $orders = Order::whereIn('status_pesanan', ['pending', 'dimasak'])
+            ->latest()
+            ->get();
 
         return view(
             'kitchen.index',

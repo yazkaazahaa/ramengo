@@ -11,7 +11,9 @@ class Order extends Model
         'nomor_meja',
         'meja_id',
         'total_harga',
-        'status'
+        'status',
+        'status_pesanan',
+        'status_pembayaran'
 
     ];
 

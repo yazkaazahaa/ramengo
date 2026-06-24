@@ -2,105 +2,72 @@
 
 @section('content')
 
-<h1 class="text-4xl font-bold text-orange-500 mb-8">
-
-    Kitchen 👨‍🍳
-
+<h1 class="mb-8 text-4xl font-bold text-orange-500">
+    Kitchen
 </h1>
 
 @if(session('success'))
-
-<div class="bg-green-100 p-4 rounded-xl mb-6">
-
-    {{ session('success') }}
-
-</div>
-
+    <div class="mb-6 rounded-xl bg-green-100 p-4 font-semibold text-green-700">
+        {{ session('success') }}
+    </div>
 @endif
 
-
 <div class="space-y-5">
+    @forelse($orders as $order)
+        <div class="rounded-2xl bg-white p-6 shadow-md">
+            <div class="flex flex-col gap-4 md:flex-row md:items-center md:justify-between">
+                <div>
+                    <h2 class="text-xl font-bold">
+                        Order #{{ $order->id }}
+                    </h2>
 
-@foreach($orders as $order)
+                    <p class="mt-1 text-gray-600">
+                        Meja: {{ $order->nomor_meja }}
+                    </p>
 
-<div class="bg-white p-6 rounded-2xl shadow-md">
+                    <p class="mt-1 text-gray-600">
+                        Total: Rp {{ number_format($order->total_harga) }}
+                    </p>
 
-    <div class="flex justify-between items-center">
+                    <div class="mt-3">
+                        @if($order->status_pesanan === 'pending')
+                            <span class="rounded-full bg-yellow-100 px-4 py-2 text-sm font-bold text-yellow-700">
+                                Menunggu Antrean Dapur
+                            </span>
+                        @elseif($order->status_pesanan === 'dimasak')
+                            <span class="rounded-full bg-orange-100 px-4 py-2 text-sm font-bold text-orange-700">
+                                Sedang Dimasak
+                            </span>
+                        @endif
+                    </div>
+                </div>
 
-        <div>
+                <div>
+                    @if($order->status_pesanan === 'pending')
+                        <form action="{{ route('kitchen.cook', $order->id) }}" method="POST">
+                            @csrf
 
-            <h2 class="font-bold text-xl">
+                            <button class="rounded-xl bg-orange-500 px-5 py-2 font-bold text-white hover:bg-orange-600">
+                                Masak
+                            </button>
+                        </form>
+                    @elseif($order->status_pesanan === 'dimasak')
+                        <form action="{{ route('kitchen.ready', $order->id) }}" method="POST">
+                            @csrf
 
-                Order #{{ $order->id }}
-
-            </h2>
-
-            <p>
-
-                Meja:
-                {{ $order->nomor_meja }}
-
-            </p>
-
-            <p>
-
-                Status:
-                {{ $order->status }}
-
-            </p>
-
+                            <button class="rounded-xl bg-green-500 px-5 py-2 font-bold text-white hover:bg-green-600">
+                                Hidangkan
+                            </button>
+                        </form>
+                    @endif
+                </div>
+            </div>
         </div>
-
-
-        <div>
-
-            @if($order->status=="Sudah Dibayar")
-
-            <form
-                action="{{ route('kitchen.cook',$order->id) }}"
-                method="POST">
-
-                @csrf
-
-                <button
-                    class="bg-orange-500 text-white px-5 py-2 rounded-xl">
-
-                    Mulai Masak
-
-                </button>
-
-            </form>
-
-            @endif
-
-
-            @if($order->status=="Sedang Dimasak")
-
-            <form
-                action="{{ route('kitchen.ready',$order->id) }}"
-                method="POST">
-
-                @csrf
-
-                <button
-                    class="bg-green-500 text-white px-5 py-2 rounded-xl">
-
-                    Siap Diambil
-
-                </button>
-
-            </form>
-
-            @endif
-
+    @empty
+        <div class="rounded-xl bg-white p-6 text-center text-gray-600">
+            Belum ada pesanan untuk dapur.
         </div>
-
-    </div>
-
-</div>
-
-@endforeach
-
+    @endforelse
 </div>
 
 @endsection

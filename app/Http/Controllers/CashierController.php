@@ -9,7 +9,7 @@ class CashierController extends Controller
     public function index()
     {
         $orders = Order::with('menu')
-            ->where('status', '!=', 'Menunggu Dimasak')
+            ->where('status_pembayaran', 'belum_lunas')
             ->latest()
             ->get();
 
@@ -33,7 +33,7 @@ class CashierController extends Controller
     public function history()
     {
         $orders = Order::with('menu')
-            ->where('status', 'Menunggu Dimasak')
+            ->where('status_pembayaran', 'lunas')
             ->latest()
             ->get();
 

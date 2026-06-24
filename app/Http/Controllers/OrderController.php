@@ -37,9 +37,11 @@ class OrderController extends Controller
     // 🔥 INI YANG DIPAKAI NAVBAR (LIST SEMUA ORDER)
     public function status()
     {
-        $orders = Order::latest()->get();
+        $order = Order::where('meja_id', session('id_meja'))
+            ->latest()
+            ->first();
 
-        return view('customer.order-status', compact('orders'));
+        return view('customer.order-status', compact('order'));
     }
 
     // (OPSIONAL) detail order kalau nanti dibutuhkan
