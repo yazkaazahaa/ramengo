@@ -124,13 +124,22 @@ Route::middleware(['auth'])->group(function () {
     */
 
     Route::get('/kitchen', [KitchenController::class, 'index'])
-        ->name('kitchen.index');
-    Route::post('/kitchen/cook/{id}', [AdminOrderController::class, 'masak'])
-        ->name('kitchen.cook');
-    Route::post('/kitchen/ready/{id}', [AdminOrderController::class, 'hidangkan'])
-        ->name('kitchen.ready');
-    Route::post('/kitchen/selesai/{id}', [AdminOrderController::class, 'selesai'])
-    ->name('kitchen.selesai');
+    ->name('kitchen.index');
+
+Route::get('/kitchen/cooking', [KitchenController::class, 'cooking'])
+    ->name('kitchen.cooking');
+
+Route::get('/kitchen/history', [KitchenController::class, 'history'])
+    ->name('kitchen.history');
+
+Route::post('/kitchen/cook/{id}', [AdminOrderController::class, 'masak'])
+    ->name('kitchen.cook');
+
+Route::post('/kitchen/ready/{id}', [AdminOrderController::class, 'hidangkan'])
+    ->name('kitchen.ready');
+
+Route::post('/kitchen/finish/{id}', [AdminOrderController::class, 'selesai'])
+    ->name('kitchen.finish');
 
     /*
     |--------------------------------------------------------------------------

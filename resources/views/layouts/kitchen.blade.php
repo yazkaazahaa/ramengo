@@ -33,6 +33,7 @@ href="{{ route('kitchen.history') }}"
 class="font-semibold text-[#F4EFEA]/85 hover:text-[#D4AF37]">
 Riwayat
 </a>
+
 <div class="container mx-auto flex items-center justify-between px-8 py-5">
 
 <h1 class="text-3xl font-extrabold text-[#D4AF37]">
