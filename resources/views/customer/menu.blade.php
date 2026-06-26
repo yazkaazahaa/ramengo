@@ -7,14 +7,6 @@
     $activeKategori = $activeKategori ?? 'semua';
     $hasMeja = session()->has('id_meja');
 @endphp
-
-<div
-    class="customer-scenic-bg relative -mx-4 -my-6 min-h-[calc(100vh-4rem)] overflow-hidden bg-[#0F0C08] bg-top bg-no-repeat text-[#F4EFEA]"
-    style="background-image: url('{{ asset('images/japan-lantern-alley-theme.png') }}');"
->
-    <div class="absolute inset-0 bg-gradient-to-b from-black/10 via-[#170d08]/46 to-[#0F0C08]"></div>
-    <div class="absolute inset-0 bg-[radial-gradient(circle_at_16%_18%,rgba(255,59,31,0.28),transparent_28%),radial-gradient(circle_at_70%_10%,rgba(255,106,42,0.22),transparent_34%)]"></div>
-
     <section class="relative mx-auto max-w-7xl px-4 py-12 sm:px-6 lg:px-8">
         <div class="mb-8 text-center">
             <p class="text-sm font-extrabold uppercase tracking-[0.28em] text-[#D4AF37]">

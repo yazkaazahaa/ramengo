@@ -2,8 +2,6 @@
 
 @section('content')
 
-<!-- HERO -->
-
 <div class="bg-gradient-to-r from-orange-500 to-orange-400 rounded-3xl p-10 shadow-lg mb-12">
 
     <div class="grid md:grid-cols-2 items-center gap-10">

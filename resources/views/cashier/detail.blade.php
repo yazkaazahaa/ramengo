@@ -55,29 +55,19 @@
             @endforeach
 
         </div>
+<div class="mt-6 space-y-3">
 
-        <div class="mt-6 space-y-3">
+    <div class="flex justify-between">
+        <span>Subtotal</span>
+        <span>Rp {{ number_format($summary['subtotal']) }}</span>
+    </div>
 
-            <div class="flex justify-between">
-                <span>Subtotal</span>
-                <span>Rp {{ number_format($summary['subtotal']) }}</span>
-            </div>
+    <div class="border-t pt-3 flex justify-between text-xl font-bold">
+        <span>Total</span>
+        <span>Rp {{ number_format($summary['subtotal']) }}</span>
+    </div>
 
-            <div class="flex justify-between">
-                <span>Service (5%)</span>
-                <span>Rp {{ number_format($summary['service_charge']) }}</span>
-            </div>
-
-            <div class="flex justify-between">
-                <span>PB1 (10%)</span>
-                <span>Rp {{ number_format($summary['pajak_pb1']) }}</span>
-            </div>
-
-            <div class="border-t pt-3 flex justify-between text-xl font-bold">
-                <span>Total</span>
-                <span>Rp {{ number_format($summary['total_akhir']) }}</span>
-            </div>
-
+</div>
         </div>
 <div class="mt-8 flex gap-3 no-print">
 
