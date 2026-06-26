@@ -49,7 +49,7 @@
 
                     <a href="{{ route('berita') }}"
                         class="font-bold text-[#F4EFEA]/85 transition hover:text-[#D4AF37]">
-                        Berita &#128240;
+                        Berita 
                     </a>
 
                     <a href="/about"

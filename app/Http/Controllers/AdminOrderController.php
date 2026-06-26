@@ -46,7 +46,10 @@ class AdminOrderController extends Controller
 
     return redirect()
         ->route('kitchen.history')
-        ->with('success', 'Pesanan selesai.');
+        ->with(
+            'success',
+            'Pesanan selesai dan meja siap dipakai.'
+        );
 }
 
    public function lunas($id): RedirectResponse

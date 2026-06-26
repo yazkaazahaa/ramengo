@@ -21,7 +21,7 @@
 
 <h1 class="text-3xl font-extrabold text-[#D4AF37]">
 
-&#127836; RamenGo Admin
+RamenGo Admin
 
 </h1>
 
@@ -60,14 +60,6 @@ href="{{ route('admin.meja.index') }}"
 class="font-semibold text-[#F4EFEA]/85 hover:text-[#D4AF37]">
 
 Meja
-
-</a>
-
-<a
-href="{{ route('admin.report') }}"
-class="font-semibold text-[#F4EFEA]/85 hover:text-[#D4AF37]">
-
-Laporan
 
 </a>
 

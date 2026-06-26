@@ -75,9 +75,9 @@
                     <span class="inline-flex rounded-full bg-orange-100 px-5 py-3 text-base font-bold text-orange-700">
                         Ramen Sedang Dimasak Chef 🍳
                     </span>
-                @elseif ($order->status_pesanan === 'siap_dihidangkan')
+                @elseif ($order->status_pesanan === 'siap_diambil')
                     <span class="inline-flex rounded-full bg-emerald-100 px-5 py-3 text-base font-bold text-emerald-700">
-                        Pesanan Siap Dihidangkan! 🍜
+                        Pesanan Siap Diambil! 🍜
                     </span>
                 @else
                     <span class="inline-flex rounded-full bg-gray-100 px-5 py-3 text-base font-bold text-gray-700">

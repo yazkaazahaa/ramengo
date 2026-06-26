@@ -51,7 +51,7 @@ class OrderController extends Controller
         // Ambil satu order aktif terakhir milik meja yang sedang tersimpan di session.
         $order = Order::with(['items.menu', 'meja'])
             ->where('meja_id', session('id_meja'))
-            ->whereIn('status_pesanan', ['pending', 'dimasak', 'siap_dihidangkan'])
+            ->whereIn('status_pesanan', ['pending', 'dimasak', 'siap_diambil'])
             ->latest()
             ->first();
 

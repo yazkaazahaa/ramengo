@@ -42,7 +42,7 @@
 
 @endif
 
-@endsection@extends('layouts.cashier')
+@endsection('layouts.cashier')
 
 @section('content')
 

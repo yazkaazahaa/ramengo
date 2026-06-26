@@ -11,7 +11,7 @@
             <div class="relative">
                 <p class="text-sm font-bold uppercase tracking-[0.25em] text-orange-100">RamenGo Admin Studio</p>
                 <h1 class="mt-3 text-4xl font-extrabold leading-tight md:text-5xl">
-                    🍜 Pengelola Promo & Event RamenGo
+                     Pengelola Promo & Event RamenGo
                 </h1>
                 <p class="mt-3 max-w-2xl text-lg font-medium text-orange-50">
                     Atur strategi diskon dan acara festival ramen harian di sini.
@@ -195,31 +195,16 @@
 
                             <div class="mt-6 grid gap-3 sm:grid-cols-3">
                                 <a
-                                    href="{{ route('admin.content.edit', $content->id) }}"
-                                    class="inline-flex w-full items-center justify-center rounded-xl bg-sky-100 px-4 py-3 text-center text-sm font-bold text-sky-700 transition hover:bg-sky-200"
-                                >
-                                    Edit Konten
-                                </a>
-
-                                <form action="{{ route('content.update', $content->id) }}" method="POST">
-                                    @csrf
-                                    <input type="hidden" name="halaman" value="{{ $content->halaman }}">
-                                    <input type="hidden" name="judul" value="{{ $content->judul }}">
-                                    <input type="hidden" name="isi" value="{{ $content->isi }}">
-                                    <input type="hidden" name="is_active" value="0">
-
-                                    <button
-                                        type="submit"
-                                        class="w-full rounded-xl bg-gray-200 px-4 py-3 text-sm font-bold text-gray-800 transition hover:bg-gray-300"
-                                    >
-                                        Matikan Sementara
-                                    </button>
-                                </form>
+    href="{{ route('admin.content.edit', $content->id) }}"
+    class="block w-full rounded-xl bg-orange-500 px-4 py-3 text-center text-sm font-bold text-white transition hover:bg-orange-600"
+>
+    Edit
+</a>
 
                                 <form
                                     action="{{ route('content.delete', $content->id) }}"
                                     method="POST"
-                                    onsubmit="return confirm('Hapus permanen promo/event ini?')"
+                                    onsubmit="return confirm('Hapus promo/event ini?')"
                                 >
                                     @csrf
 
@@ -227,7 +212,7 @@
                                         type="submit"
                                         class="w-full rounded-xl bg-red-500 px-4 py-3 text-sm font-bold text-white transition hover:bg-red-600"
                                     >
-                                        Hapus Permanen
+                                        Hapus
                                     </button>
                                 </form>
                             </div>
